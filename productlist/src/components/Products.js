@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 
 export default function Products() {
 
-    const[productList, setProductList] = useState([]);
+    const [productList, setProductList] = useState([]);
 
     useEffect(() => {
         axios.get("https://fakestoreapi.com/products")
-        .then(result => setProductList(result.data))
-        .catch(err => console.log(err))
-    },[])
+            .then(result => setProductList(result.data))
+            .catch(err => console.log(err))
+    }, [])
 
     const handleDelete = (id) => {
         axios.get("https://fakestoreapi.com/products/destroy", id)
-        .then(() => {
-            setProductList(productList.filter(product => product.id !== id))
-        })
-        .catch(err => console.log("Error deleting product",err))
+            .then(() => {
+                setProductList(productList.filter(product => product.id !== id))
+            })
+            .catch(err => console.log("Error deleting product", err))
     }
 
     return (
@@ -38,7 +38,7 @@ export default function Products() {
                 </thead>
 
                 <tbody>
-                    { productList && productList.map(product => (
+                    {productList && productList.map(product => (
                         <tr key={product.id}>
                             <td>{product.title}</td>
                             <td>{product.description}</td>
@@ -51,9 +51,9 @@ export default function Products() {
                                 </div>
 
                             </td>
-                    </tr>  
-                    ))                         
-                    }                                    
+                        </tr>
+                    ))
+                    }
                 </tbody>
             </table>
         </div>
